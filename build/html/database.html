@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Database structure &mdash; MatD3 Documentation v1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5cb08e4e"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MatD3 Documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Database structure</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MatD3 Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Database structure</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/database.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="database-structure">
+<h1>Database structure<a class="headerlink" href="#database-structure" title="Link to this heading"></a></h1>
+<p>The web interface for the database is written in the Django web framework and the database itself is of SQL type. That is, any structured database should in principle be fine for hosting (mySQL, SQLite), but we recommend using mySQL/MariaDB. This section provides an overview of the Django models used for the website. The presentation focuses on how the models are defined in the Python source code and not the actual SQL tables. For example, even though fields such as the primary key are not listed in the following, it is understood that these are automatically created for the SQL tables.</p>
+<p>Most models inherit from a base model which records information of how each entry is created/updated. Since actual inheritance is not supported in relational databases, Django explicitly copies these fields to any child models.</p>
+<div class="admonition-base admonition">
+<p class="admonition-title">Base</p>
+<dl class="simple">
+<dt><strong>created</strong></dt><dd><p>date the entry was created</p>
+</dd>
+<dt><strong>updated</strong></dt><dd><p>date the entry was last modified</p>
+</dd>
+<dt><strong>created by</strong></dt><dd><p>user that created the entry</p>
+</dd>
+<dt><strong>updated by</strong></dt><dd><p>user that updated the entry</p>
+</dd>
+</dl>
+</div>
+<p>All properties are stored in a table that contains the name of the property.</p>
+<div class="admonition-property-base admonition">
+<p class="admonition-title">Property(Base)</p>
+<dl class="simple">
+<dt><strong>name</strong></dt><dd><p>displayed name of the property</p>
+</dd>
+</dl>
+</div>
+<p>All units are stored in a table that contains the label field.</p>
+<div class="admonition-unit-base admonition">
+<p class="admonition-title">Unit(Base)</p>
+<dl class="simple">
+<dt><strong>label</strong></dt><dd><p>“nm”, “cm<sup>2</sup> V<sup>-1</sup> s<sup>-1</sup>”, …</p>
+</dd>
+</dl>
+</div>
+<p>A solid system is defined by the following properties.</p>
+<div class="admonition-system admonition">
+<p class="admonition-title">System</p>
+<dl class="simple">
+<dt><strong>compound name</strong></dt><dd><p>displayed name of the material</p>
+</dd>
+<dt><strong>formula</strong></dt><dd><p>chemical formula for the compound</p>
+</dd>
+<dt><strong>group</strong></dt><dd><p>alternate names</p>
+</dd>
+<dt><strong>organic</strong></dt><dd><p>organic component</p>
+</dd>
+<dt><strong>inorganic</strong></dt><dd><p>inorganic component</p>
+</dd>
+<dt><strong>iupac</strong></dt><dd><p>IUPAC name</p>
+</dd>
+<dt><strong>last_update</strong></dt><dd><p>date the system was last modified</p>
+</dd>
+<dt><strong>derived_to_from</strong></dt><dd><p>a ManyToManyField, used if the system is somehow directly linked to another system</p>
+</dd>
+<dt><strong>description</strong></dt><dd><p>description of the compound</p>
+</dd>
+</dl>
+</div>
+<p>Authors and references are stored in the following tables.</p>
+<div class="admonition-author admonition">
+<p class="admonition-title">Author</p>
+<dl class="simple">
+<dt><strong>first_name</strong></dt><dd><p>first name</p>
+</dd>
+<dt><strong>last_name</strong></dt><dd><p>last name</p>
+</dd>
+<dt><strong>institution</strong></dt><dd><p>institution, does not have to be the full address</p>
+</dd>
+<dt><strong>reference</strong></dt><dd><p>a ManyToMany field that maps authors to references.</p>
+</dd>
+</dl>
+</div>
+<div class="admonition-reference admonition">
+<p class="admonition-title">Reference</p>
+<dl class="simple">
+<dt><strong>title</strong></dt><dd><p>title of the paper</p>
+</dd>
+<dt><strong>journal</strong></dt><dd><p>journal name</p>
+</dd>
+<dt><strong>vol</strong></dt><dd><p>volume</p>
+</dd>
+<dt><strong>pages_start</strong></dt><dd><p>starting page number</p>
+</dd>
+<dt><strong>pages_end</strong></dt><dd><p>end page number</p>
+</dd>
+<dt><strong>year</strong></dt><dd><p>year of publication</p>
+</dd>
+<dt><strong>doi_isbn</strong></dt><dd><p>DOI/ISBN if applicable</p>
+</dd>
+</dl>
+</div>
+<p>All experimental and theoretical results are contained in data sets. A data set typically refers to a single value, table, or figure found in a reference. The quantity of primary interest is called the “primary property”. For example, given some data where the band gap depends on temperature, the band gap and temperature would be the “primary” and “secondary” properties, respectively (think of these as y- and x-values in a plot).</p>
+<div class="admonition-dataset-base admonition">
+<p class="admonition-title">Dataset(Base)</p>
+<dl class="simple">
+<dt><strong>caption</strong></dt><dd><p>description of the data set</p>
+</dd>
+<dt><strong>system</strong></dt><dd><p>foreign key for System</p>
+</dd>
+<dt><strong>primary_property</strong></dt><dd><p>foreign key for Property</p>
+</dd>
+<dt><strong>primary_unit</strong></dt><dd><p>foreign key for Unit</p>
+</dd>
+<dt><strong>primary_property_label</strong></dt><dd><p>custom label for the y-axis (typically left empty and the property name is used instead)</p>
+</dd>
+<dt><strong>secondary_property</strong></dt><dd><p>foreign key for Property</p>
+</dd>
+<dt><strong>secondary_unit</strong></dt><dd><p>foreign key for Unit</p>
+</dd>
+<dt><strong>secondary_property_label</strong></dt><dd><p>custom label for the x-axis (typically left empty and the property name is used instead)</p>
+</dd>
+<dt><strong>reference</strong></dt><dd><p>foreign key for Reference</p>
+</dd>
+<dt><strong>visible</strong></dt><dd><p>whether the data is visible on the website</p>
+</dd>
+<dt><strong>is_figure</strong></dt><dd><p>whether the data should be plotted</p>
+</dd>
+<dt><strong>plotted</strong></dt><dd><p>whether data is plotted by default</p>
+</dd>
+<dt><strong>experimental</strong></dt><dd><p>whether the data is of experimental origin (theoretical if false)</p>
+</dd>
+<dt><strong>dimensionality</strong></dt><dd><p>dimensionality of the inorganic component as understood in the HOIP literature (not the dimensionality of the crystal)</p>
+</dd>
+<dt><strong>sample_type</strong></dt><dd><p>single crystal, powder, ldots</p>
+</dd>
+<dt><strong>extraction_method</strong></dt><dd><p>short explanation for how the data was obtained</p>
+</dd>
+<dt><strong>representative</strong></dt><dd><p>in case of multiple entries of the same property for a given material, whether this data set should be shown on the material’s main page.</p>
+</dd>
+<dt><strong>linked_to</strong></dt><dd><p>a ManyToManyField, used if the numerical values of this data set are somehow directly linked to another data set</p>
+</dd>
+<dt><strong>verified_by</strong></dt><dd><p>list of users that have verified the correctness of the data set</p>
+</dd>
+</dl>
+</div>
+<p>A data set consists of one or more data subsets. One is always present but there could be several if it is possible to logically group the data somehow. For instance, different curves in a figure would correspond to separate data subsets.</p>
+<div class="admonition-subset-base admonition">
+<p class="admonition-title">Subset(Base)</p>
+<dl class="simple">
+<dt><strong>dataset</strong></dt><dd><p>foreign key for Dataset</p>
+</dd>
+<dt><strong>label</strong></dt><dd><p>short description of this subset</p>
+</dd>
+<dt><strong>crystal_system</strong></dt><dd><p>one of the seven crystal systems</p>
+</dd>
+</dl>
+</div>
+<p>A data subset consists of one or more data points. When describing a single value such as the band gap of a material with no additional dependencies, the whole data set would consist of one subset with only one data point with one numerical value.</p>
+<div class="admonition-datapoint-base admonition">
+<p class="admonition-title">Datapoint(Base)</p>
+<dl class="simple">
+<dt><strong>subset</strong></dt><dd><p>foreign key for Subset</p>
+</dd>
+</dl>
+</div>
+<p>Finally, the actual data is stored in the <strong>NumericalValue</strong> table.</p>
+<div class="admonition-numericalvalue-base admonition">
+<p class="admonition-title">NumericalValue(Base)</p>
+<dl class="simple">
+<dt><strong>datapoint</strong></dt><dd><p>foreign key for Datapoint</p>
+</dd>
+<dt><strong>qualifier</strong></dt><dd><p>“primary”, “secondary”</p>
+</dd>
+<dt><strong>value_type</strong></dt><dd><p>“accurate”, “approximate”, “lower/upper bound”</p>
+</dd>
+<dt><strong>value</strong></dt><dd><p>floating point number</p>
+</dd>
+<dt><strong>counter</strong></dt><dd><p>counts the number of values attached to a given data point</p>
+</dd>
+</dl>
+</div>
+<p>Any errors (uncertainties) associated with a numerical value are stored in a separate table. In the code, the errors are then retrieved from the database by querying for numerical values with the verb+select_related(‘error’)+ function and checking if a value has an associated error (verb+if hasattr(value, ‘error’)+).</p>
+<div class="admonition-error-base admonition">
+<p class="admonition-title">Error(Base)</p>
+<dl class="simple">
+<dt><strong>numerical_value</strong></dt><dd><p>foreign key for NumericalValue</p>
+</dd>
+<dt><strong>value</strong></dt><dd><p>floating point number</p>
+</dd>
+</dl>
+</div>
+<p>Similarly to errors, when dealing with ranges, the upper bounds are stored in a separate table. The <strong>value</strong> field is then understood to contain the lower bound of the range</p>
+<div class="admonition-upperbound-base admonition">
+<p class="admonition-title">UpperBound(Base)</p>
+<dl class="simple">
+<dt><strong>numerical_value</strong></dt><dd><p>foreign key for NumericalValue</p>
+</dd>
+<dt><strong>value</strong></dt><dd><p>floating point number</p>
+</dd>
+</dl>
+</div>
+<p>A separate table is used for values that are fixed across a data subset. For instance, if the curves of band gap vs dopant density are measured for different temperatures, then “band gap”, “dopant density”, and “temperature” would be “primary”, “secondary”, and “fixed”, respectively. Unlike regular numerical values, the fixed values are far lesser in number. Thus, we can attach the errors directly to the values without a performance penalty.</p>
+<div class="admonition-numericalvaluefixed-base admonition">
+<p class="admonition-title">NumericalValueFixed(Base)</p>
+<dl class="simple">
+<dt><strong>dataset</strong></dt><dd><p>foreign key for Dataset</p>
+</dd>
+<dt><strong>subset</strong></dt><dd><p>foreign key for Subset</p>
+</dd>
+<dt><strong>physical_property</strong></dt><dd><p>foreign key for Property</p>
+</dd>
+<dt><strong>unit</strong></dt><dd><p>foreign key for Unit</p>
+</dd>
+<dt><strong>value</strong></dt><dd><p>floating point number</p>
+</dd>
+<dt><strong>type</strong></dt><dd><p>“accurate”, “approximate”, “lower/upper bound”, “error”</p>
+</dd>
+<dt><strong>error</strong></dt><dd><p>floating point number (optional)</p>
+</dd>
+<dt><strong>upper_bound</strong></dt><dd><p>floating point number (optional); if present, then <strong>value</strong> is understood to be the lower bound for the range</p>
+</dd>
+</dl>
+</div>
+<p>If the dependence of the primary property is on something that cannot be stored as a floating point number, it is stored in the <strong>Symbol</strong> table. Example: the user enters band gap values a function of phase. The phases are then stored as strings in the following table.</p>
+<div class="admonition-symbol-base admonition">
+<p class="admonition-title">Symbol(Base)</p>
+<dl class="simple">
+<dt><strong>datapoint</strong></dt><dd><p>foreign key for Datapoint</p>
+</dd>
+<dt><strong>value</strong></dt><dd><p>a string</p>
+</dd>
+<dt><strong>counter</strong></dt><dd><p>counts the number of symbols attached to a given data point</p>
+</dd>
+</dl>
+</div>
+<p>In case of an experimental study, the details of the synthesis method and the experiment can be stored in the following tables.</p>
+<div class="admonition-synthesismethod-base admonition">
+<p class="admonition-title">SynthesisMethod(Base)</p>
+<dl class="simple">
+<dt><strong>dataset</strong></dt><dd><p>foreign key for Datapoint</p>
+</dd>
+<dt><strong>starting_materials</strong></dt><dd><p>starting materials of synthesis</p>
+</dd>
+<dt><strong>product</strong></dt><dd><p>product of synthesis</p>
+</dd>
+<dt><strong>description</strong></dt><dd><p>detailed description of the synthesis process</p>
+</dd>
+</dl>
+</div>
+<div class="admonition-experimentaldetails-base admonition">
+<p class="admonition-title">ExperimentalDetails(Base)</p>
+<dl class="simple">
+<dt><strong>dataset</strong></dt><dd><p>foreign key for Datapoint</p>
+</dd>
+<dt><strong>method</strong></dt><dd><p>name of the experimental method</p>
+</dd>
+<dt><strong>description</strong></dt><dd><p>detailed description of the experiment</p>
+</dd>
+</dl>
+</div>
+<p>Similarly, in case of a theoretical study, the computational details are recorded in a separate table.</p>
+<div class="admonition-computationaldetails-base admonition">
+<p class="admonition-title">ComputationalDetails(Base)</p>
+<dl class="simple">
+<dt><strong>dataset</strong></dt><dd><p>foreign key for Datapoint</p>
+</dd>
+<dt><strong>code</strong></dt><dd><p>computer code used for calculations</p>
+</dd>
+<dt><strong>level_of_theory</strong></dt><dd><p>level of theory used in the calculation</p>
+</dd>
+<dt><strong>xc_functional</strong></dt><dd><p>exchange-correlation functional</p>
+</dd>
+<dt><strong>k_point_grid</strong></dt><dd><p>details about the K-point grid</p>
+</dd>
+<dt><strong>level_of_relativity</strong></dt><dd><p>level of relatively (this includes the description of spin-orbit coupling)</p>
+</dd>
+<dt><strong>basis_set_definition</strong></dt><dd><p>anything related to the basis set used (this includes pseudopotential details, if applicable)</p>
+</dd>
+<dt><strong>numerical_accuracy</strong></dt><dd><p>information about parameters that control the accuracy of the calculation</p>
+</dd>
+</dl>
+</div>
+<p>Each entry of synthesis method, experimental details, or computational details may have a comment, which is stored in a separate table.</p>
+<div class="admonition-comment-base admonition">
+<p class="admonition-title">Comment(Base)</p>
+<dl class="simple">
+<dt><strong>synthesis_method</strong></dt><dd><p>foreign key for SynthesisMethod</p>
+</dd>
+<dt><strong>experimental_details</strong></dt><dd><p>foreign key for ExperimentalDetails</p>
+</dd>
+<dt><strong>computational_details</strong></dt><dd><p>foreign key for ComputationalDetails</p>
+</dd>
+<dt><strong>text</strong></dt><dd><p>comment body</p>
+</dd>
+</dl>
+</div>
+<p>Besides storing all numerical data in a structured database, the data is also stored in the form of files. This way the original user uploaded data is stored without modifications, e.g., preserving any comments that the input file may contain.</p>
+<div class="admonition-inputdatafile-base admonition">
+<p class="admonition-title">InputDataFile(Base)</p>
+<dl class="simple">
+<dt><strong>dataset</strong></dt><dd><p>foreign key for Dataset</p>
+</dd>
+<dt><strong>dataset_file</strong></dt><dd><p>a file upload field</p>
+</dd>
+</dl>
+</div>
+<p>Any additional files, if present, are stored in <strong>DatasetFile</strong> (input/output files for a calculation, image of the sample, ldots).</p>
+<div class="admonition-additionalfile-base admonition">
+<p class="admonition-title">AdditionalFile(Base)</p>
+<dl class="simple">
+<dt><strong>dataset</strong></dt><dd><p>foreign key for Dataset</p>
+</dd>
+<dt><strong>dataset_file</strong></dt><dd><p>a file upload field</p>
+</dd>
+</dl>
+</div>
+<p>Phase transition properties, such as the phase transition pressure, required special treatment and are stored in <strong>PhaseTransition</strong>.</p>
+<div class="admonition-phasetransition-base admonition">
+<p class="admonition-title">PhaseTransition(Base)</p>
+<dl class="simple">
+<dt><strong>subset</strong></dt><dd><p>foreign key for Subset</p>
+</dd>
+<dt><strong>crystal_system_final</strong></dt><dd><p>final crystal system; <strong>crystal_system</strong> of the subset is then understood to be the initial crystal system</p>
+</dd>
+<dt><strong>space_group_initial</strong></dt><dd><p>initial space group</p>
+</dd>
+<dt><strong>space_group_final</strong></dt><dd><p>final space group</p>
+</dd>
+<dt><strong>direction</strong></dt><dd><p>direction of the phase transition</p>
+</dd>
+<dt><strong>hysteresis</strong></dt><dd><p>details about the hysteresis of the phase transition</p>
+</dd>
+<dt><strong>value</strong></dt><dd><p>floating point number</p>
+</dd>
+<dt><strong>value_type</strong></dt><dd><p>“accurate”, “approximate”, “lower/upper bound”</p>
+</dd>
+<dt><strong>counter</strong></dt><dd><p>number of values attached to a given subset</p>
+</dd>
+<dt><strong>error</strong></dt><dd><p>uncertainty of the value</p>
+</dd>
+<dt><strong>upper_bound</strong></dt><dd><p>upper bound of the value</p>
+</dd>
+</dl>
+</div>
+<p>All user information is stored in the <strong>UserProfile</strong> table.</p>
+<div class="admonition-userprofile admonition">
+<p class="admonition-title">UserProfile</p>
+<dl class="simple">
+<dt><strong>user</strong></dt><dd><p>the default Django user model</p>
+</dd>
+<dt><strong>description</strong></dt><dd><p>description of the user (e.g., undergraduate)</p>
+</dd>
+<dt><strong>institution</strong></dt><dd><p>name of the institution</p>
+</dd>
+<dt><strong>website</strong></dt><dd><p>website of the user</p>
+</dd>
+</dl>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Rayan Chakraborty, Harsh Mathur.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

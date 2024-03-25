@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mac &mdash; MatD3 Documentation v1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5cb08e4e"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Windows" href="windows.html" />
+    <link rel="prev" title="Welcome to MatD3 Documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MatD3 Documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Mac</a></li>
+<li class="toctree-l1"><a class="reference internal" href="windows.html">Windows</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MatD3 Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Mac</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/mac.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mac">
+<h1>Mac<a class="headerlink" href="#mac" title="Link to this heading"></a></h1>
+<p>This section describes how to install MatD<sup>3</sup> and the requirements which have to be met, to be able to properly install and run the program on a system with MacOS.</p>
+<p><strong>Prerequisites</strong></p>
+<p>Before we begin installation for the database, we must note the following prerequisites for a smooth installation. If you believe you have these, verify with the commands that verify this Add link.</p>
+<ol class="arabic simple">
+<li><p>Install <em>brew</em> to your system</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/bin/bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>To procure <em>pip</em>, simply install <em>python</em> via brew to your system as shown bellow</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>python
+</pre></div>
+</div>
+<p>If the above command threw errors, try installing python3 instead:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>python3
+</pre></div>
+</div>
+<p>If the above line successfully installed python3, please use <em>pip3</em> and <em>python3</em> wherever <em>pip</em> and <em>python</em> are mentioned in the future steps.</p>
+<p><strong>Package Installation</strong></p>
+<ul class="simple">
+<li><p>Navigate to your desired directory and clone the project via github</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/HybriD3-database/MatD3.git
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Change directory into the main starter file directory</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>MatD3
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Create a python virtual environment using the following commands</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+<span class="nb">source</span><span class="w"> </span>venv/bin/activate
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Run the following command to install all the required packages. (Remember to use <em>pip3</em> instead of <em>pip</em> if you installed python3)</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-vr<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+<p>(I Made fixes to the source code for requirements)</p>
+<ul class="simple">
+<li><p>Install mysql from their website. (Provision to show step by step installation)</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>https://dev.mysql.com/downloads/mysql/
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>After installing the service pane from the link above, click on ‘Start MySQL Server’</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/mysql_service_pane.png"><img alt="Service_Pane Screenshot" class="align-center" src="_images/mysql_service_pane.png" style="width: 300px;" /></a>
+<ul class="simple">
+<li><p>You will be prompted to enter a password. Please save the password you enter. After entering this, your server must now be active as shown bellow.</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/service_pane_active_screenshot.png"><img alt="Service_Pane Success Screenshot" class="align-center" src="_images/service_pane_active_screenshot.png" style="width: 300px;" /></a>
+<ul class="simple">
+<li><p>Now, go back to the terminal and create a database in the server you just created.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>You will be prompted for the password. Enter the password you had created in the previous steps. Once you’re in the mysql command line, create a database</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>create<span class="w"> </span>database<span class="w"> </span>materials<span class="p">;</span>
+<span class="nb">exit</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Navigate to settings.py using your text editor in the following path:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/MatD3/mainproject/settings.py
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Go to line 95 and add set default = ‘root’</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;USER&#39;</span>:<span class="w"> </span>config<span class="o">(</span><span class="s1">&#39;DB_USER&#39;</span>,<span class="w"> </span><span class="nv">default</span><span class="o">=</span><span class="s1">&#39;root&#39;</span><span class="o">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Go to line 96 and set your default = &lt;your password&gt;</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;PASSWORD&#39;</span>:<span class="w"> </span>config<span class="o">(</span><span class="s1">&#39;DB_PASSWORD&#39;</span>,<span class="w"> </span><span class="nv">default</span><span class="o">=</span><span class="s1">&#39;your password&#39;</span><span class="o">)</span>,
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Go back to the terminal and run the static collection and migration commands</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./manage.py<span class="w"> </span>collectstatic
+./manage.py<span class="w"> </span>migrate
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Congratulations! You’ve successfully configured the starter files and are ready to develop. Run the webapp server:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./manage.py<span class="w"> </span>runserver
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Go to your browser and head to the following URL to view the running server:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>http://127.0.0.1:8000/
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to MatD3 Documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="windows.html" class="btn btn-neutral float-right" title="Windows" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Rayan Chakraborty, Harsh Mathur.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
